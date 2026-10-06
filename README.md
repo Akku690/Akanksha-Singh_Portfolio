@@ -9,7 +9,7 @@ A responsive, single-page personal portfolio built with plain HTML, CSS, and Jav
 - Responsive layout for desktop, tablet, and mobile
 - Sections: Home, About, Education, Stack, Experience, Projects, Certifications, Resume, Contact
 - Scroll-reveal animations and a custom cursor
-- Embedded PDF resume with open and download buttons
+- Embedded PDF resume with open, download, and browser-based upload buttons
 - Accessible markup with reduced-motion support
 
 ## Tech Used
@@ -38,6 +38,11 @@ python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000` in your browser. You can also open `index.html` directly.
+
+The Resume section accepts PDF uploads and immediately uses the selected file
+for viewing and downloading during the current browser visit. Because this is
+a static site, uploaded files are not saved to the server; replace
+`assets/Akanksha_Devops.pdf` to publish a new default resume.
 
 ## Deploy
 

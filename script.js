@@ -162,9 +162,18 @@ if (pointerEffectsAllowed) {
 
 const resumeModal = document.querySelector("#resumeModal");
 const resumeFrame = document.querySelector("#resumeFrame");
+const viewResume = document.querySelector("#viewResume");
+const downloadResume = document.querySelector("#downloadResume");
+const openResumeTab = document.querySelector("#openResumeTab");
+const modalDownloadResume = document.querySelector("#modalDownloadResume");
+const resumeUpload = document.querySelector("#resumeUpload");
+const resumeUploadStatus = document.querySelector("#resumeUploadStatus");
+let uploadedResumeUrl = "";
+let currentResumeUrl = "assets/Akanksha_Devops.pdf";
+let currentResumeName = "Akanksha_Devops.pdf";
 
 function openResume() {
-  resumeFrame.src = "assets/Akanksha_Devops.pdf#view=FitH";
+  resumeFrame.src = `${currentResumeUrl}#view=FitH`;
   resumeModal.classList.add("open");
   resumeModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
@@ -175,6 +184,38 @@ function closeResume() {
   document.body.style.overflow = "";
   resumeFrame.removeAttribute("src");
 }
+
+const updateResumeLinks = () => {
+  [viewResume, downloadResume, openResumeTab, modalDownloadResume].forEach((link) => {
+    if (!link) return;
+    link.href = currentResumeUrl;
+  });
+  [downloadResume, modalDownloadResume].forEach((link) => {
+    if (link) link.download = currentResumeName;
+  });
+};
+
+resumeUpload?.addEventListener("change", (event) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+    resumeUploadStatus.textContent = "Please choose a PDF file to upload.";
+    resumeUpload.value = "";
+    return;
+  }
+
+  if (uploadedResumeUrl) URL.revokeObjectURL(uploadedResumeUrl);
+  uploadedResumeUrl = URL.createObjectURL(file);
+  currentResumeUrl = uploadedResumeUrl;
+  currentResumeName = file.name;
+  updateResumeLinks();
+  resumeUploadStatus.textContent = `Using uploaded resume: ${file.name}`;
+});
+
+window.addEventListener("beforeunload", () => {
+  if (uploadedResumeUrl) URL.revokeObjectURL(uploadedResumeUrl);
+});
 
 document.querySelectorAll("[data-open-resume]").forEach((el) => {
   el.addEventListener("click", (e) => {
@@ -191,3 +232,5 @@ resumeModal.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && resumeModal.classList.contains("open")) closeResume();
 });
+
+updateResumeLinks();

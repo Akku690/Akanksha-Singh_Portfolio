@@ -913,6 +913,7 @@
             </div>
             <div class="resume-actions">
               <a
+                id="viewResume"
                 class="button button-primary magnetic"
                 href="assets/Akanksha_Devops.pdf"
                 target="_blank"
@@ -921,13 +922,21 @@
                 >View Resume <span>↗</span></a
               >
               <a
+                id="downloadResume"
                 class="button button-outline magnetic"
                 href="assets/Akanksha_Devops.pdf"
                 download="Akanksha_Devops.pdf"
                 >Download <span>↓</span></a
               >
+              <label class="button button-outline magnetic upload-resume" for="resumeUpload">
+                Upload Resume <span>↑</span>
+              </label>
+              <input id="resumeUpload" class="resume-upload-input" type="file" accept="application/pdf,.pdf" />
             </div>
           </div>
+          <p class="resume-upload-status" id="resumeUploadStatus" role="status">
+            Upload a PDF to preview and download your updated resume.
+          </p>
         </div>
       </section>
 
@@ -1011,8 +1020,8 @@
         <div class="resume-modal-bar">
           <span>Akanksha Singh — Resume</span>
           <div class="resume-modal-actions">
-            <a href="assets/Akanksha_Devops.pdf" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
-            <a href="assets/Akanksha_Devops.pdf" download="Akanksha_Devops.pdf">Download ↓</a>
+            <a id="openResumeTab" href="assets/Akanksha_Devops.pdf" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+            <a id="modalDownloadResume" href="assets/Akanksha_Devops.pdf" download="Akanksha_Devops.pdf">Download ↓</a>
             <button type="button" id="closeResume" aria-label="Close resume">×</button>
           </div>
         </div>
